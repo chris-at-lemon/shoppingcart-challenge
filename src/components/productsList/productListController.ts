@@ -2,9 +2,12 @@ import { useEffect, useState } from "react";
 import { httpGet } from "../../modules/http";
 import { Product } from "../../types";
 
-export const useProductList = () => {
-  const [productList, setProductList] = useState<Product[]>([]);
+import { useRecoilState } from "recoil";
+import { CartState } from "../../atoms/cartAtom";
 
+export const useProductList = () => {
+  // Products list
+  const [productList, setProductList] = useState<Product[]>([]);
   const getProducts = async (pageNumber: number) => {
     const results = await httpGet(`http://localhost:3000/api/products?page=${pageNumber}`);
     let NewProductList = [...productList];
@@ -24,10 +27,25 @@ export const useProductList = () => {
     getProducts(1);
   }, []);
 
+  // Cart
+  const [cart, setCart] = useRecoilState<any>(CartState);
+  console.log("cart", cart);
+  console.log("cartLength", Object.keys(cart).length);
+
+  const addToCart = (id: string, name: string, price: number) => {
+    let quantity = 1;
+    if (cart.hasOwnProperty(id)) {
+      console.log("I have that key");
+      quantity = cart[id].quantity + 1;
+    }
+    setCart({ ...cart, [id]: { name: name, price: price, quantity: quantity } });
+  };
+
   return {
     productList,
     fn: {
       getProducts,
+      addToCart,
     },
   };
 };

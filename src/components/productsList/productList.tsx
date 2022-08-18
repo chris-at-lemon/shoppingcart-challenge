@@ -13,7 +13,7 @@ const ProductList = () => {
       {productList &&
         productList.map((product) => {
           return (
-            <>
+            <div className="productContainer" key={product.gtin}>
               <div className="">
                 <strong>{product.name}</strong>{" "}
                 <span>
@@ -23,7 +23,7 @@ const ProductList = () => {
                 </span>
                 <hr />
               </div>
-              <div key={product.gtin} className="grid grid-cols-3 gap-4">
+              <div className="grid grid-cols-3 gap-4">
                 <div className="w-32 h-auto py-4">
                   <img src={product.imageUrl} alt={product.name} />
                 </div>
@@ -33,8 +33,11 @@ const ProductList = () => {
                     {product.recommendedRetailPrice}
                   </div>
                 </div>
+                <div className="flex flex-row items-center">
+                  <button onClick={() => fn.addToCart(product.gtin, product.name, product.recommendedRetailPrice)}>add to cart</button>
+                </div>
               </div>
-            </>
+            </div>
           );
         })}
     </div>
