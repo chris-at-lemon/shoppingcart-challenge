@@ -1,9 +1,15 @@
-import type { AppProps } from 'next/app';
+import type { AppProps } from "next/app";
+import Layout from "../components/Layout";
+import { RecoilRoot } from "recoil";
 
-import '../global.css';
+import "../global.css";
 
 const QogitaApp = ({ Component, pageProps }: AppProps): JSX.Element => (
-  <Component {...pageProps} />
+  <RecoilRoot>
+    <Layout>
+      <Component {...pageProps} />
+    </Layout>
+  </RecoilRoot>
 );
 
 export default QogitaApp;
