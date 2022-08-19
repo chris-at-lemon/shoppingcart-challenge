@@ -5,7 +5,7 @@ import { Product } from "../../types";
 import { useRecoilState } from "recoil";
 import { CartState } from "../../atoms/cartAtom";
 
-import { addToCart } from "../../modules/cartActions";
+import { addToCart, removeFromCart } from "../../modules/cartActions";
 
 export const useProductList = () => {
   // Products list
@@ -32,44 +32,22 @@ export const useProductList = () => {
   // Cart
   const [cart, setCart] = useRecoilState<any>(CartState);
 
-  const addToCart = (id: string, name: string, price: number) => {
-    let quantity = 1;
-    if (cart.hasOwnProperty(id)) {
-      quantity = cart[id].quantity + 1;
-    }
-    setCart({ ...cart, [id]: { name: name, price: price, quantity: quantity, subtotal: price * quantity } });
+  const handleAddToCart = (id: string, name: string, price: number) => {
+    const newCart = addToCart(cart, id, name, price);
+    setCart(newCart);
   };
 
-  const removeFromCart = (id: string, name: string, price: number) => {
-    let newCart = { ...cart };
-
-    if (newCart[id] !== undefined) {
-      let quantity = newCart[id].quantity;
-
-      if (newCart[id].quantity === 1) {
-        delete newCart[id];
-        setCart(newCart);
-      }
-      if (Object.keys(newCart).length > 0) {
-        if (newCart[id].quantity > 1) {
-          quantity = newCart[id].quantity - 1;
-          setCart({ ...cart, [id]: { name: name, price: price, quantity: quantity, subtotal: price * quantity } });
-        }
-      }
-    }
-  };
-
-  const newAddToCart = (id: string, name: string, price: number) => {
-    addToCart(id, name, price);
+  const handleRemoveFromCart = (id: string, name: string, price: number) => {
+    const newCart = removeFromCart(cart, id, name, price);
+    setCart(newCart);
   };
 
   return {
     productList,
     fn: {
       getProducts,
-      addToCart,
-      removeFromCart,
-      newAddToCart,
+      handleRemoveFromCart,
+      handleAddToCart,
     },
   };
 };

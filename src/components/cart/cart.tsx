@@ -2,10 +2,11 @@ import { useCart } from "./cartController";
 
 const Cart = () => {
   const { cart, total, fn } = useCart();
+  console.log(cart);
 
   return (
     <div>
-      {Object.keys(cart).length > 0 && (
+      {cart && (
         <>
           <ul>
             {Object.keys(cart).map((key, i) => {
@@ -16,14 +17,14 @@ const Cart = () => {
                     {cart[key].price} x {cart[key].quantity}
                   </div>
                   <div>
-                    <button onClick={() => fn.addToCart(key, cart[key].name, cart[key].price)}>add</button>
-                    <button onClick={() => fn.removeFromCart(key, cart[key].name, cart[key].price)}>remove</button>
+                    <button onClick={() => fn.handleAddToCart(key, cart[key].name, cart[key].price)}>add</button>
+                    <button onClick={() => fn.handleRemoveFromCart(key, cart[key].name, cart[key].price)}>remove</button>
                   </div>
                 </div>
               );
             })}
           </ul>
-          <div>Total: {total}</div>
+          {Object.keys(cart).length !== 0 && <div>Total: {total}</div>}
         </>
       )}
     </div>

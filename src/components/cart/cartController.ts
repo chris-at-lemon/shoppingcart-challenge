@@ -1,52 +1,33 @@
-import { httpGet } from "../../modules/http";
 import { useRecoilState } from "recoil";
 import { CartState } from "../../atoms/cartAtom";
+import { addToCart, removeFromCart } from "../../modules/cartActions";
 
 export const useCart = () => {
   const [cart, setCart] = useRecoilState<any>(CartState);
 
-  const addToCart = (id: string, name: string, price: number) => {
-    let quantity = 1;
-    if (cart.hasOwnProperty(id)) {
-      quantity = cart[id].quantity + 1;
-    }
-    setCart({ ...cart, [id]: { name: name, price: price, quantity: quantity, subtotal: price * quantity } });
+  const handleAddToCart = (id: string, name: string, price: number) => {
+    const newCart = addToCart(cart, id, name, price);
+    setCart(newCart);
   };
 
-  const removeFromCart = (id: string, name: string, price: number) => {
-    let newCart = { ...cart };
-
-    if (newCart[id] !== undefined) {
-      let quantity = newCart[id].quantity;
-
-      if (newCart[id].quantity === 1) {
-        delete newCart[id];
-        setCart(newCart);
-      }
-      if (Object.keys(newCart).length > 0) {
-        if (newCart[id].quantity > 1) {
-          quantity = newCart[id].quantity - 1;
-          setCart({ ...cart, [id]: { name: name, price: price, quantity: quantity, subtotal: price * quantity } });
-        }
-      }
-    }
+  const handleRemoveFromCart = (id: string, name: string, price: number) => {
+    const newCart = removeFromCart(cart, id, name, price);
+    setCart(newCart);
   };
 
   // Calculate total
-  const total: number | any = Object.values(cart).reduce((acc, curr: any) => (acc = acc + curr["subtotal"]), 0);
-  console.log("res", total);
-
-  const getProducts = async () => {
-    const results = await httpGet("http://localhost:3000/api/products");
-    console.log(results);
-  };
+  let total: number | any = 0;
+  if (cart) {
+    total = Object.values(cart).reduce((acc, curr: any) => (acc = acc + curr["subtotal"]), 0);
+    console.log("res", total);
+  }
 
   return {
     cart,
     total,
     fn: {
-      addToCart,
-      removeFromCart,
+      handleAddToCart,
+      handleRemoveFromCart,
     },
   };
 };
