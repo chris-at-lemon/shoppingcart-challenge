@@ -20,7 +20,7 @@ export const useProductList = () => {
       NewProductList.push(...results.response.results);
       setProductList(NewProductList);
     }
-    console.log(results.response.results);
+    // console.log(results.response.results);
   };
 
   useEffect(() => {
@@ -29,8 +29,6 @@ export const useProductList = () => {
 
   // Cart
   const [cart, setCart] = useRecoilState<any>(CartState);
-  console.log("cart", cart);
-  console.log("cartLength", Object.keys(cart).length);
 
   const addToCart = (id: string, name: string, price: number) => {
     let quantity = 1;
@@ -38,7 +36,7 @@ export const useProductList = () => {
       console.log("I have that key");
       quantity = cart[id].quantity + 1;
     }
-    setCart({ ...cart, [id]: { name: name, price: price, quantity: quantity } });
+    setCart({ ...cart, [id]: { name: name, price: price, quantity: quantity, subtotal: price * quantity } });
   };
 
   return {
