@@ -19,7 +19,6 @@ export const useCart = () => {
   let total: number | any = 0;
   if (cart) {
     total = Object.values(cart).reduce((acc, curr: any) => (acc = acc + curr["subtotal"]), 0);
-    console.log("res", total);
   }
 
   return {

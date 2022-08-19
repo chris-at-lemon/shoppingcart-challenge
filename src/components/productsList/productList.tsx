@@ -7,7 +7,7 @@ const ProductList = () => {
   return (
     <div className="container">
       <div>
-        <button onClick={() => fn.getProducts(2)}>get products</button>
+        <button onClick={() => fn.fetchProducts(2, productList)}>get products</button>
       </div>
       {productList &&
         productList.map((product) => {

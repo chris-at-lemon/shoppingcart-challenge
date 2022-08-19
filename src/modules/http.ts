@@ -1,8 +1,7 @@
-import * as axios from 'axios';
+import * as axios from "axios";
 
 export const httpGet = async (url: string, header: any = {}) => {
   try {
-    // if (header) {
     const response = await axios.default.get(url, header);
 
     const responseData = {
@@ -13,17 +12,6 @@ export const httpGet = async (url: string, header: any = {}) => {
     };
 
     return responseData;
-    // } else {
-    //   const response = await axios.default.get(url);
-    //   const responseData = {
-    //     isValid: true,
-    //     statusCode: response.status,
-    //     message: response.statusText,
-    //     response: response.data,
-    //   };
-
-    //   return responseData;
-    // }
   } catch (error: any) {
     console.error(error);
     console.error({
@@ -34,9 +22,7 @@ export const httpGet = async (url: string, header: any = {}) => {
         data: error?.response?.data,
       },
     });
-    const message = error?.response?.data?.hasOwnProperty('message')
-      ? error.response.data.message
-      : error.response?.statusText;
+    const message = error?.response?.data?.hasOwnProperty("message") ? error.response.data.message : error.response?.statusText;
     const responseData = {
       isValid: false,
       statusCode: error.response?.status,
@@ -66,9 +52,7 @@ export const httpPost = async (url: string, body: any, header: any = {}) => {
         data: error?.response?.data,
       },
     });
-    const message = error?.response?.data?.hasOwnProperty('message')
-      ? error?.response?.data?.message
-      : error?.response?.statusText;
+    const message = error?.response?.data?.hasOwnProperty("message") ? error?.response?.data?.message : error?.response?.statusText;
     const responseData = {
       isValid: false,
       statusCode: error?.response?.status ?? 500,
@@ -98,9 +82,7 @@ export const httpPatch = async (url: string, body: any, header: any = {}) => {
         data: error.response.data,
       },
     });
-    const message = error?.response?.data?.hasOwnProperty('message')
-      ? error.response.data.message
-      : error.response.statusText;
+    const message = error?.response?.data?.hasOwnProperty("message") ? error.response.data.message : error.response.statusText;
     const responseData = {
       isValid: false,
       statusCode: error.response.status,
@@ -130,9 +112,7 @@ export const httpDelete = async (url: string, header: any) => {
         data: error.response.data,
       },
     });
-    const message = error?.response?.data?.hasOwnProperty('message')
-      ? error.response.data.message
-      : error.response.statusText;
+    const message = error?.response?.data?.hasOwnProperty("message") ? error.response.data.message : error.response.statusText;
     const responseData = {
       isValid: false,
       statusCode: error.response.status,
@@ -141,14 +121,4 @@ export const httpDelete = async (url: string, header: any) => {
     };
     return responseData;
   }
-};
-
-export const propsToUrl = (url: string, searchProps: any) => {
-  let thisUrl = url;
-  for (const key in searchProps) {
-    if (searchProps[key] !== 'undefined' && typeof searchProps[key] !== 'undefined') {
-      thisUrl += `${key}=${searchProps[key]}&`;
-    }
-  }
-  return thisUrl;
 };

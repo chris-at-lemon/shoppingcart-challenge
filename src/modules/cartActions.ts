@@ -9,7 +9,13 @@ export const addToCart = (cart: any, id: string, name: string, price: number) =>
 export const removeFromCart = (cart: any, id: string, name: string, price: number) => {
   let newCart = { ...cart };
 
+  if (newCart[id] === undefined) {
+    return newCart;
+  }
+
   if (newCart[id] !== undefined) {
+    console.log("deleting");
+
     let quantity = newCart[id].quantity;
 
     if (newCart[id].quantity === 1) {

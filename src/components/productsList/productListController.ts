@@ -5,31 +5,25 @@ import { Product } from "../../types";
 import { useRecoilState } from "recoil";
 import { CartState } from "../../atoms/cartAtom";
 
+import { getProducts } from "../../modules/productListActions";
 import { addToCart, removeFromCart } from "../../modules/cartActions";
 
 export const useProductList = () => {
-  // Products list
+  // Products list global state
   const [productList, setProductList] = useState<Product[]>([]);
-  const getProducts = async (pageNumber: number) => {
-    const results = await httpGet(`http://localhost:3000/api/products?page=${pageNumber}`);
-    let NewProductList = [...productList];
 
-    if (productList.length === 0) {
-      setProductList(results.response.results);
-    } else {
-      // If state exists do not set state directly. Use copy, empty array, push new array, update state
-      NewProductList.length = 0;
-      NewProductList.push(...results.response.results);
-      setProductList(NewProductList);
-    }
-    // console.log(results.response.results);
+  // Get products
+  const fetchProducts = async (page: number, productList: Product[]) => {
+    const initialProductsList = await getProducts(page, productList);
+    setProductList(initialProductsList);
   };
 
+  // Get initial list
   useEffect(() => {
-    getProducts(1);
+    fetchProducts(1, productList);
   }, []);
 
-  // Cart
+  // Perform cart actions
   const [cart, setCart] = useRecoilState<any>(CartState);
 
   const handleAddToCart = (id: string, name: string, price: number) => {
@@ -45,7 +39,7 @@ export const useProductList = () => {
   return {
     productList,
     fn: {
-      getProducts,
+      fetchProducts,
       handleRemoveFromCart,
       handleAddToCart,
     },

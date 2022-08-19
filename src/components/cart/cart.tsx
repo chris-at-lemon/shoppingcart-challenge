@@ -24,7 +24,7 @@ const Cart = () => {
               );
             })}
           </ul>
-          {Object.keys(cart).length !== 0 && <div>Total: {total}</div>}
+          {Object.keys(cart).length !== 0 && <div>Total: {total.toFixed(2)}</div>}
         </>
       )}
     </div>
