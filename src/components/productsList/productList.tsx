@@ -3,7 +3,7 @@ import { useProductList } from "./productListController";
 
 const ProductList = () => {
   const { productList, fn } = useProductList();
-  console.log("productList", productList);
+  //console.log("productList", productList);
 
   return (
     <div className="container">
@@ -34,7 +34,8 @@ const ProductList = () => {
                   </div>
                 </div>
                 <div className="flex flex-row items-center">
-                  <button onClick={() => fn.addToCart(product.gtin, product.name, product.recommendedRetailPrice)}>add to cart</button>
+                  <button onClick={() => fn.newAddToCart(product.gtin, product.name, product.recommendedRetailPrice)}>add to cart</button>
+                  <button onClick={() => fn.removeFromCart(product.gtin, product.name, product.recommendedRetailPrice)}>remove from cart</button>
                 </div>
               </div>
             </div>
