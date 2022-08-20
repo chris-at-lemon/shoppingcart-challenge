@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { useProductList } from "./productListController";
 import PagBtns from "../buttons/paginationBtns";
+import Button from "../buttons/button";
 import PageCount from "../counters/pageCount";
 
 const ProductList = () => {
@@ -39,9 +40,13 @@ const ProductList = () => {
                     {product.recommendedRetailPrice}
                   </div>
                 </div>
-                <div className="flex flex-row items-center">
-                  <button onClick={() => fn.handleAddToCart(product.gtin, product.name, product.recommendedRetailPrice)}>add to cart</button>
-                  <button onClick={() => fn.handleRemoveFromCart(product.gtin, product.name, product.recommendedRetailPrice)}>remove from cart</button>
+                <div className="flex flex-row items-center justify-end">
+                  <div className="mr-4" onClick={() => fn.handleAddToCart(product.gtin, product.name, product.recommendedRetailPrice)}>
+                    <Button label="add to cart" />
+                  </div>
+                  <div onClick={() => fn.handleRemoveFromCart(product.gtin, product.name, product.recommendedRetailPrice)}>
+                    <Button label="remove from cart" />
+                  </div>
                 </div>
               </div>
             </div>
