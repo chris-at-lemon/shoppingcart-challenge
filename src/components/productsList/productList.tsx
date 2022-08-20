@@ -1,18 +1,20 @@
 import Image from "next/image";
 import { useProductList } from "./productListController";
-import Button from "../buttons/button";
 import PagBtns from "../buttons/paginationBtns";
+import PageCount from "../counters/pageCount";
 
 const ProductList = () => {
-  const { productList, fn } = useProductList();
+  const { productList, currentPage, productCount, prodPerPage, fn } = useProductList();
 
   return (
     <div className="container">
-      <div>
-        <Button label="get next page" />
-        <PagBtns nextPage={fn.getNextPage} prevPage={fn.getPrevPage} />
-        <button onClick={() => fn.getPrevPage()}>get next page</button>
-        <button onClick={() => fn.getNextPage()}>get next page</button>
+      <div className="pb-4 flex justify-end items-center">
+        <div className="mr-4">
+          <PageCount count={currentPage} productCount={productCount} prodPerPage={prodPerPage} />
+        </div>
+        <div>
+          <PagBtns nextPage={fn.getNextPage} prevPage={fn.getPrevPage} />
+        </div>
       </div>
       {productList &&
         productList.map((product) => {

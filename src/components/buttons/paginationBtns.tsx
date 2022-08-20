@@ -1,11 +1,9 @@
-interface IButton {
-  label: string;
+interface IPgButton {
   nextPage: () => void;
   prevPage: () => void;
 }
 
-const PagBtns = (props: IButton) => {
-  const { label } = props;
+const PagBtns = (props: IPgButton) => {
   return (
     <div className="inline-flex">
       <button onClick={() => props.prevPage()} className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l">

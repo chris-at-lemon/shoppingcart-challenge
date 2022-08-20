@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { httpGet } from "../../modules/http";
 import { Product } from "../../types";
 
 import { useRecoilState } from "recoil";
@@ -44,9 +43,10 @@ export const useProductList = () => {
 
   // Pagination
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const [prodPerPage, setProdPerPage] = useState<number>(20);
 
   const getNextPage = () => {
-    if (currentPage === productCount / 20) {
+    if (currentPage === productCount / prodPerPage) {
       return;
     }
     setCurrentPage((prevState) => prevState + 1);
@@ -65,6 +65,9 @@ export const useProductList = () => {
 
   return {
     productList,
+    currentPage,
+    productCount,
+    prodPerPage,
     fn: {
       fetchProducts,
       handleRemoveFromCart,

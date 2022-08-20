@@ -2,7 +2,7 @@ import ProductList from "../components/productsList/productList";
 import Cart from "../components/cart/cart";
 
 const HomePage = () => (
-  <div className="container mx-auto">
+  <div className="container mx-auto my-16">
     <div className="grid grid-cols-4 gap-16">
       <main role="main" className="col-span-4 md:col-span-3">
         <ProductList />
