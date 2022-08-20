@@ -14,8 +14,6 @@ export const removeFromCart = (cart: any, id: string, name: string, price: numbe
   }
 
   if (newCart[id] !== undefined) {
-    console.log("deleting");
-
     let quantity = newCart[id].quantity;
 
     if (newCart[id].quantity === 1) {

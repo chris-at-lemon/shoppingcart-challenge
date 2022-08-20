@@ -2,7 +2,6 @@ import { useCart } from "./cartController";
 
 const Cart = () => {
   const { cart, total, fn } = useCart();
-  console.log(cart);
 
   return (
     <div>

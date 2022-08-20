@@ -11,17 +11,23 @@ import { addToCart, removeFromCart } from "../../modules/cartActions";
 export const useProductList = () => {
   // Products list global state
   const [productList, setProductList] = useState<Product[]>([]);
+  const [productCount, setProductCount] = useState<number>(0);
 
   // Get products
   const fetchProducts = async (page: number, productList: Product[]) => {
-    const initialProductsList = await getProducts(page, productList);
-    setProductList(initialProductsList);
-  };
+    const thisProductsList = await getProducts(currentPage, productList);
 
-  // Get initial list
-  useEffect(() => {
-    fetchProducts(1, productList);
-  }, []);
+    setProductList(thisProductsList.results);
+    // is list exists, make a copy, destroy, push new list and update state
+    // example of not mutating state directly
+    //let newProductslist = [...productList];
+    //newProductslist.length = 0;
+    //newProductslist.push(...thisProductsList.results);
+    //setProductList(newProductslist);
+
+    // set product count
+    setProductCount(thisProductsList.count);
+  };
 
   // Perform cart actions
   const [cart, setCart] = useRecoilState<any>(CartState);
@@ -36,12 +42,35 @@ export const useProductList = () => {
     setCart(newCart);
   };
 
+  // Pagination
+  const [currentPage, setCurrentPage] = useState<number>(1);
+
+  const getNextPage = () => {
+    if (currentPage === productCount / 20) {
+      return;
+    }
+    setCurrentPage((prevState) => prevState + 1);
+  };
+  const getPrevPage = () => {
+    if (currentPage === 1) {
+      return;
+    }
+    setCurrentPage((prevState) => prevState - 1);
+  };
+
+  // Get initial list and whenever page number changes
+  useEffect(() => {
+    fetchProducts(currentPage, productList);
+  }, [currentPage]);
+
   return {
     productList,
     fn: {
       fetchProducts,
       handleRemoveFromCart,
       handleAddToCart,
+      getNextPage,
+      getPrevPage,
     },
   };
 };

@@ -1,5 +1,7 @@
 import Image from "next/image";
 import { useProductList } from "./productListController";
+import Button from "../buttons/button";
+import PagBtns from "../buttons/paginationBtns";
 
 const ProductList = () => {
   const { productList, fn } = useProductList();
@@ -7,7 +9,10 @@ const ProductList = () => {
   return (
     <div className="container">
       <div>
-        <button onClick={() => fn.fetchProducts(2, productList)}>get products</button>
+        <Button label="get next page" />
+        <PagBtns nextPage={fn.getNextPage} prevPage={fn.getPrevPage} />
+        <button onClick={() => fn.getPrevPage()}>get next page</button>
+        <button onClick={() => fn.getNextPage()}>get next page</button>
       </div>
       {productList &&
         productList.map((product) => {
