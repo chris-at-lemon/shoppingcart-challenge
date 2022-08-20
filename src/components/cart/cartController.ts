@@ -2,16 +2,19 @@ import { useRecoilState } from "recoil";
 import { CartState } from "../../atoms/cartAtom";
 import { addToCart, removeFromCart } from "../../modules/cartActions";
 
-export const useCart = () => {
-  const [cart, setCart] = useRecoilState<any>(CartState);
+import { CartInterface } from "../../types";
 
-  const handleAddToCart = (id: string, name: string, price: number) => {
-    const newCart = addToCart(cart, id, name, price);
+export const useCart = () => {
+  const [cart, setCart] = useRecoilState<CartInterface>(CartState);
+  console.log(cart);
+
+  const handleAddToCart = (id: string, name: string, price: number, currency: string) => {
+    const newCart = addToCart(cart, id, name, price, currency);
     setCart(newCart);
   };
 
-  const handleRemoveFromCart = (id: string, name: string, price: number) => {
-    const newCart = removeFromCart(cart, id, name, price);
+  const handleRemoveFromCart = (id: string, name: string, price: number, currency: string) => {
+    const newCart = removeFromCart(cart, id, name, price, currency);
     setCart(newCart);
   };
 

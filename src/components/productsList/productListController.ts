@@ -31,13 +31,13 @@ export const useProductList = () => {
   // Perform cart actions
   const [cart, setCart] = useRecoilState<any>(CartState);
 
-  const handleAddToCart = (id: string, name: string, price: number) => {
-    const newCart = addToCart(cart, id, name, price);
+  const handleAddToCart = (id: string, name: string, price: number, currency: string) => {
+    const newCart = addToCart(cart, id, name, price, currency);
     setCart(newCart);
   };
 
-  const handleRemoveFromCart = (id: string, name: string, price: number) => {
-    const newCart = removeFromCart(cart, id, name, price);
+  const handleRemoveFromCart = (id: string, name: string, price: number, currency: string) => {
+    const newCart = removeFromCart(cart, id, name, price, currency);
     setCart(newCart);
   };
 
