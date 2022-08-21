@@ -18,14 +18,15 @@ const Cart = () => {
                     <div key={i}>
                       <div className="font-bold">{cart[key].name}</div>
                       <div>
-                        {cart[key].currency} {cart[key].price} x {cart[key].quantity}
+                        {cart[key].currency} {cart[key].price}
                       </div>
-                      <div>
-                        <div className="mr-4" onClick={() => fn.handleAddToCart(key, cart[key].name, cart[key].price, cart[key].currency)}>
-                          <Button label="add to cart" />
+                      <div className="flex">
+                        <div className="mr-4" onClick={() => fn.handleRemoveFromCart(key, cart[key].name, cart[key].price, cart[key].currency)}>
+                          <Button label="-" colour="danger" size="sm" />
                         </div>
-                        <div onClick={() => fn.handleRemoveFromCart(key, cart[key].name, cart[key].price, cart[key].currency)}>
-                          <Button label="remove from cart" />
+                        <div>x {cart[key].quantity}</div>
+                        <div className="ml-4" onClick={() => fn.handleAddToCart(key, cart[key].name, cart[key].price, cart[key].currency)}>
+                          <Button label="+" colour="primary" size="sm" />
                         </div>
                       </div>
                     </div>
