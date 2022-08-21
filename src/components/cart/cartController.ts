@@ -1,12 +1,12 @@
+import { useState, useEffect } from "react";
 import { useRecoilState } from "recoil";
 import { CartState } from "../../atoms/cartAtom";
 import { addToCart, removeFromCart } from "../../modules/cartActions";
 
-import { CartInterface } from "../../types";
+import { Cart } from "../../types";
 
-export const useCart = () => {
-  const [cart, setCart] = useRecoilState<CartInterface>(CartState);
-  console.log(cart);
+export const cartController = () => {
+  const [cart, setCart] = useCart();
 
   const handleAddToCart = (id: string, name: string, price: number, currency: string) => {
     const newCart = addToCart(cart, id, name, price, currency);
@@ -19,9 +19,9 @@ export const useCart = () => {
   };
 
   // Calculate total
-  let total: number | any = 0;
+  let total: number = 0;
   if (cart) {
-    total = Object.values(cart).reduce((acc, curr: any) => (acc = acc + curr["subtotal"]), 0);
+    total = Object.values(cart).reduce((acc, curr) => (acc = acc + curr["subtotal"]), 0);
   }
 
   return {
@@ -33,3 +33,14 @@ export const useCart = () => {
     },
   };
 };
+
+export function useCart() {
+  const [isInitial, setIsInitial] = useState(true);
+  const [cartStored, setCartStored] = useRecoilState<Cart>(CartState);
+
+  useEffect(() => {
+    setIsInitial(false);
+  }, []);
+
+  return [isInitial ? false : cartStored, setCartStored] as const;
+}

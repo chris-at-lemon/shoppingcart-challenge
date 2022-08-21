@@ -8,7 +8,7 @@ export type Product = {
   categoryName: string;
 };
 
-export type CartInterface = {
+export type Cart = {
   [s: string]: {
     name: string;
     price: number;

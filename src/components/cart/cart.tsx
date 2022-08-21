@@ -1,7 +1,7 @@
-import { useCart } from "./cartController";
+import { cartController } from "./cartController";
 
 const Cart = () => {
-  const { cart, total, fn } = useCart();
+  const { cart, total, fn } = cartController();
 
   return (
     <>
