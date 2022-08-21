@@ -34,6 +34,7 @@ export const cartController = () => {
   };
 };
 
+// Prevent SSR and Client side HTML going out of sync by only getting persisted state after initial render
 export function useCart() {
   const [isInitial, setIsInitial] = useState(true);
   const [cartStored, setCartStored] = useRecoilState<Cart>(CartState);
