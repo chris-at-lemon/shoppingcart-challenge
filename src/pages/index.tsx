@@ -1,5 +1,8 @@
+import dynamic from "next/dynamic";
+
 import ProductList from "../components/productsList/productList";
-import Cart from "../components/cart/cart";
+import CartLoader from "../components/loders/loadercart";
+const Cart = dynamic(() => import("../components/cart/cart"), { ssr: false, loading: () => <CartLoader /> });
 
 const HomePage = () => (
   <div className="grid grid-cols-8 gap-16 mt-8">
