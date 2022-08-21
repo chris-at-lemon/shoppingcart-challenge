@@ -1,29 +1,41 @@
 import { cartController } from "./cartController";
+import Button from "../buttons/button";
 
 const Cart = () => {
   const { cart, total, fn } = cartController();
+  console.log(cart);
 
   return (
     <>
       {cart && (
         <>
-          <div className="pt-1 pb-2 mb-2 text-xl font-bold">Your cart</div>
+          <div className="pt-1 pb-4 mb-2 text-xl font-bold">Your cart</div>
           <div className="rounded shadow-md p-4 mb-4 border-2">
-            {Object.keys(cart).map((key, i) => {
-              return (
-                <div key={i}>
-                  <div className="font-bold">{cart[key as keyof typeof cart].name}</div>
-                  <div>
-                    {cart[key].currency} {cart[key].price} x {cart[key].quantity}
-                  </div>
-                  <div>
-                    <button onClick={() => fn.handleAddToCart(key, cart[key].name, cart[key].price, cart[key].currency)}>add</button>
-                    <button onClick={() => fn.handleRemoveFromCart(key, cart[key].name, cart[key].price, cart[key].currency)}>remove</button>
-                  </div>
-                </div>
-              );
-            })}
-            {Object.keys(cart).length !== 0 && <div className="mt-4 pt-2 border-t-2">Total: {total.toFixed(2)}</div>}
+            {Object.keys(cart).length > 0 ? (
+              <>
+                {Object.keys(cart).map((key, i) => {
+                  return (
+                    <div key={i}>
+                      <div className="font-bold">{cart[key].name}</div>
+                      <div>
+                        {cart[key].currency} {cart[key].price} x {cart[key].quantity}
+                      </div>
+                      <div>
+                        <div className="mr-4" onClick={() => fn.handleAddToCart(key, cart[key].name, cart[key].price, cart[key].currency)}>
+                          <Button label="add to cart" />
+                        </div>
+                        <div onClick={() => fn.handleRemoveFromCart(key, cart[key].name, cart[key].price, cart[key].currency)}>
+                          <Button label="remove from cart" />
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+                {Object.keys(cart).length !== 0 && <div className="mt-4 pt-2 border-t-2">Total: {total.toFixed(2)}</div>}
+              </>
+            ) : (
+              <div>Your cart is currently empty</div>
+            )}
           </div>
         </>
       )}
