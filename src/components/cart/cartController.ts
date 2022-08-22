@@ -28,14 +28,13 @@ export const cartController = () => {
 
   const handleInputChange = (e: React.FormEvent<HTMLInputElement>, productId: string) => {
     const onlyNumbers = e.currentTarget.value.replace(/\D/g, "");
-
     setQuantityInputValue({ id: productId, quantity: onlyNumbers });
   };
 
   const handleAddQuantity = (newQuantity: AddQuantityItem) => {
-    console.log("passing", newQuantity);
     const newCart = addQuantity(cart, newQuantity);
-    // setCart(newCart);
+    setCart(newCart);
+    setQuantityInputValue({ id: "", quantity: "" });
   };
 
   // Calculate total

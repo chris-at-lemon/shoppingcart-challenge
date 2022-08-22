@@ -27,11 +27,9 @@ export const removeFromCart = (cart: Cart, cartProps: RemoveCartItem) => {
     if (Object.keys(newCart).length > 0) {
       if (newCart[id].quantity > 1) {
         quantity = newCart[id].quantity - 1;
-
         const updatedCartItem = { ...newCart[id] };
         updatedCartItem.quantity = quantity;
-
-        console.log("updatedCartItem", { ...newCart, [id]: updatedCartItem });
+        updatedCartItem.subtotal = quantity * updatedCartItem.price;
 
         return { ...newCart, [id]: updatedCartItem };
       }
@@ -45,21 +43,17 @@ export const addQuantity = (cart: Cart, cartProps: AddQuantityItem) => {
   const { newQuantity, id } = cartProps;
 
   let newCart = { ...cart };
-  let quantity = cart[id].quantity;
 
   if (newQuantity) {
-    const updatedCartItem = { ...cart[id] };
+    if (parseFloat(newQuantity) === 0) {
+      delete newCart[id];
+      return newCart;
+    }
+    const updatedCartItem = { ...newCart[id] };
     updatedCartItem.quantity = parseFloat(newQuantity);
-    console.log("newCart", updatedCartItem);
+    updatedCartItem.subtotal = parseFloat(newQuantity) * updatedCartItem.price;
+    return { ...newCart, [id]: updatedCartItem };
   }
 
-  // if (newQuantity) {
-  //   quantity = parseInt(newQuantity);
-  //   newCart[id].quantity = quantity;
-  //   console.log(quantity);
-  // }
-
-  // console.log({ ...newCart, [id]: updatedCartItem });
-
-  // return { ...cart, [id]: { name: name, price: price, quantity: quantity, subtotal: price * quantity, currency: currency } };
+  return { ...cart };
 };

@@ -30,7 +30,7 @@ const Cart = () => {
                           <Button label="+" colour="primary" size="sm" />
                         </div>
                         <div>
-                          <NumberInput value={quantityInputValue.id === key ? quantityInputValue.quantity : cart[key].quantity.toString()} onHandleChange={fn.handleInputChange} productId={key} setProductId={fn.setThisProduct} />
+                          <NumberInput value={quantityInputValue.id === key ? quantityInputValue.quantity : cart[key].quantity.toString()} onHandleChange={fn.handleInputChange} productId={key} />
                         </div>
                         <div className="ml-4" onClick={() => fn.handleAddQuantity({ id: key, newQuantity: quantityInputValue.quantity })}>
                           <Button label="+" colour="primary" size="sm" />
