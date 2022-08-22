@@ -3,30 +3,20 @@ export type Product = {
   gtin: string;
   recommendedRetailPrice: number;
   recommendedRetailPriceCurrency: string;
-  imageUrl: string;
-  brandName: string;
-  categoryName: string;
-};
-
-export type Cart = {
-  [s: string]: {
-    name: string;
-    price: number;
-    quantity: number;
-    subtotal: number;
-    currency: string;
-  };
-};
-
-export type CartItem = {
-  gtin: string;
-  name: string;
-  price: number;
-  currency: string;
-  newQuantity?: string;
   imageUrl?: string;
   brandName?: string;
   categoryName?: string;
+};
+
+export type Cart = {
+  [s: string]: Product & {
+    quantity: number;
+    subtotal: number;
+  };
+};
+
+export type CartItem = Product & {
+  quantity?: string;
 };
 
 export type RemoveCartItem = {

@@ -18,14 +18,14 @@ const NumberInput = (props: NumberInput) => {
         return;
       }
       if (e.target.value !== "") {
-        addQuantity({ id: productId, newQuantity: e.target.value });
+        addQuantity({ gtin: productId, newQuantity: e.target.value });
       }
     }, 400);
   };
 
   function handleKeyDown(e: React.KeyboardEvent) {
     if (e.key === "Enter") {
-      addQuantity({ id: productId, newQuantity: thisVal });
+      addQuantity({ gtin: productId, newQuantity: thisVal });
     }
   }
 

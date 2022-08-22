@@ -1,19 +1,28 @@
 import { useState, useEffect } from "react";
 import { useRecoilState } from "recoil";
 import { CartState } from "../../atoms/cartAtom";
-import { addToCart, removeFromCart, addQuantity, calcTotal } from "../../modules/cartActions";
+import { addToCart, removeFromCart, addQuantity, calcTotal, addToItem } from "../../modules/cartActions";
 import { getSingleProduct } from "../../modules/productListActions";
 
 import { Cart, CartItem, RemoveCartItem, AddQuantityItem } from "../../types";
 
 export const cartController = () => {
   const [cart, setCart] = useRecoilState<Cart>(CartState);
-  console.log(cart);
+  // console.log("cart", cart);
 
   // Product actions
+  // The below is just to demo using the single product API
+  // We extend product props in the cart state
+  // It may be more efficint to have all required item props in the cart state from the moment the product was added
+  const [seeDetails, setSeeDetails] = useState<boolean>(false);
+  const toggleDetails = () => {
+    setSeeDetails(!seeDetails);
+  };
+
   const fetchSingleProduct = async (gtin: string) => {
-    const thisProduct = await getSingleProduct(gtin);
-    console.log(thisProduct);
+    const thisProduct: CartItem = await getSingleProduct(gtin);
+    const newCart = addToItem(cart, thisProduct);
+    setCart(newCart);
   };
 
   // Cart actions
@@ -69,6 +78,7 @@ export const cartController = () => {
     cart,
     total,
     quantityInputValue,
+    seeDetails,
     fn: {
       handleAddToCart,
       handleRemoveFromCart,
@@ -76,6 +86,7 @@ export const cartController = () => {
       handleInputChange,
       handleResetCart,
       fetchSingleProduct,
+      toggleDetails,
     },
   };
 };

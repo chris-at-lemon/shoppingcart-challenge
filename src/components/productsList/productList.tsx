@@ -45,7 +45,7 @@ const ProductList = () => {
                   <div className="mr-4" onClick={() => fn.handleAddQuantity({ gtin: product.gtin, newQuantity: "0" })}>
                     <Button label="remove from cart" colour="danger" size="md" />
                   </div>
-                  <div onClick={() => fn.handleAddToCart({ gtin: product.gtin, name: product.name, price: product.recommendedRetailPrice, currency: product.recommendedRetailPriceCurrency })}>
+                  <div onClick={() => fn.handleAddToCart({ gtin: product.gtin, name: product.name, recommendedRetailPrice: product.recommendedRetailPrice, recommendedRetailPriceCurrency: product.recommendedRetailPriceCurrency })}>
                     <Button label="add to cart" colour="primary" size="md" />
                   </div>
                 </div>
