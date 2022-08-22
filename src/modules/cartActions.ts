@@ -24,15 +24,13 @@ export const removeFromCart = (cart: Cart, cartProps: RemoveCartItem) => {
       delete newCart[id];
       return newCart;
     }
-    if (Object.keys(newCart).length > 0) {
-      if (newCart[id].quantity > 1) {
-        quantity = newCart[id].quantity - 1;
-        const updatedCartItem = { ...newCart[id] };
-        updatedCartItem.quantity = quantity;
-        updatedCartItem.subtotal = quantity * updatedCartItem.price;
+    if (newCart[id].quantity > 1) {
+      quantity = newCart[id].quantity - 1;
+      const updatedCartItem = { ...newCart[id] };
+      updatedCartItem.quantity = quantity;
+      updatedCartItem.subtotal = quantity * updatedCartItem.price;
 
-        return { ...newCart, [id]: updatedCartItem };
-      }
+      return { ...newCart, [id]: updatedCartItem };
     }
   }
 
@@ -56,4 +54,9 @@ export const addQuantity = (cart: Cart, cartProps: AddQuantityItem) => {
   }
 
   return { ...cart };
+};
+
+export const calcTotal = (cart: Cart) => {
+  const total = Object.values(cart).reduce((acc, curr: any) => (acc = acc + curr["subtotal"]), 0);
+  return total;
 };

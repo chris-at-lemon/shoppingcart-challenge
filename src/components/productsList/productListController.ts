@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import { Product, Cart, CartItem } from "../../types";
+import { Product, Cart, CartItem, AddQuantityItem } from "../../types";
 
 import { useRecoilState } from "recoil";
 import { CartState } from "../../atoms/cartAtom";
 
 import { getProducts } from "../../modules/productListActions";
-import { addToCart, removeFromCart } from "../../modules/cartActions";
+import { addToCart, removeFromCart, addQuantity } from "../../modules/cartActions";
 
 export const useProductList = () => {
   // Products list global state
@@ -31,6 +31,11 @@ export const useProductList = () => {
 
   const handleRemoveFromCart = (cartItem: CartItem) => {
     const newCart = removeFromCart(cart, cartItem);
+    setCart(newCart);
+  };
+
+  const handleAddQuantity = (newQuantity: AddQuantityItem) => {
+    const newCart = addQuantity(cart, newQuantity);
     setCart(newCart);
   };
 
@@ -65,6 +70,7 @@ export const useProductList = () => {
       fetchProducts,
       handleRemoveFromCart,
       handleAddToCart,
+      handleAddQuantity,
       getNextPage,
       getPrevPage,
     },

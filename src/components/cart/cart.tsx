@@ -30,7 +30,7 @@ const Cart = () => {
                           <Button label="+" colour="primary" size="sm" />
                         </div>
                         <div>
-                          <NumberInput value={quantityInputValue.id === key ? quantityInputValue.quantity : cart[key].quantity.toString()} onHandleChange={fn.handleInputChange} productId={key} />
+                          <NumberInput value={quantityInputValue.id === key ? quantityInputValue.quantity : cart[key].quantity.toString()} onHandleChange={fn.handleInputChange} addQuantity={fn.handleAddQuantity} productId={key} />
                         </div>
                         <div className="ml-4" onClick={() => fn.handleAddQuantity({ id: key, newQuantity: quantityInputValue.quantity })}>
                           <Button label="+" colour="primary" size="sm" />
@@ -39,7 +39,14 @@ const Cart = () => {
                     </div>
                   );
                 })}
-                {Object.keys(cart).length !== 0 && <div className="mt-4 pt-2 border-t-2">Total: {total.toFixed(2)}</div>}
+                {Object.keys(cart).length !== 0 && (
+                  <div className="flex justify-between mt-4 pt-2 border-t-2">
+                    <div onClick={fn.handleResetCart}>
+                      <Button label="empty cart" colour="danger" size="sm" />
+                    </div>
+                    <div>Total: {total.toFixed(2)}</div>
+                  </div>
+                )}
               </>
             ) : (
               <div>Your cart is currently empty</div>
