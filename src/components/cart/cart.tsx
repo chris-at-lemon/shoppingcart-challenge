@@ -16,7 +16,7 @@ const Cart = () => {
               <>
                 {Object.keys(cart).map((key, i) => {
                   return (
-                    <div className="border-b-2 pb-2 mb-4" key={i}>
+                    <div className={`border-b-2 pb-2 mb-4 ${i % 2 == 0 ? "bg-sky-500/50" : "bg-white	"}`} key={key}>
                       <div className="font-bold">{cart[key].name}</div>
                       <div className="font-semibold border-b-2 pb-2 mb-4">
                         Unit price: {cart[key].currency} {cart[key].price}

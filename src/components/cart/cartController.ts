@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useRecoilState } from "recoil";
 import { CartState } from "../../atoms/cartAtom";
 import { addToCart, removeFromCart, addQuantity, calcTotal } from "../../modules/cartActions";
+import { oddOrEven } from "../../modules/utilities";
 
 import { Cart, CartItem, RemoveCartItem, AddQuantityItem } from "../../types";
 
