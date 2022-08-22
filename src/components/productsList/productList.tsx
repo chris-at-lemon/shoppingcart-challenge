@@ -42,10 +42,10 @@ const ProductList = () => {
                   </div>
                 </div>
                 <div className="w-full md:w-1/2 flex flex-row items-center justify-end lg:justify-end">
-                  <div className="mr-4" onClick={() => fn.handleRemoveFromCart(product.gtin, product.name, product.recommendedRetailPrice, product.recommendedRetailPriceCurrency)}>
+                  <div className="mr-4" onClick={() => fn.handleRemoveFromCart({ id: product.gtin, name: product.name, price: product.recommendedRetailPrice, currency: product.recommendedRetailPriceCurrency })}>
                     <Button label="remove from cart" colour="danger" size="md" />
                   </div>
-                  <div onClick={() => fn.handleAddToCart(product.gtin, product.name, product.recommendedRetailPrice, product.recommendedRetailPriceCurrency)}>
+                  <div onClick={() => fn.handleAddToCart({ id: product.gtin, name: product.name, price: product.recommendedRetailPrice, currency: product.recommendedRetailPriceCurrency })}>
                     <Button label="add to cart" colour="primary" size="md" />
                   </div>
                 </div>

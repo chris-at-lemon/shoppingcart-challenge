@@ -17,6 +17,24 @@ export type Cart = {
     currency: string;
   };
 };
+
+export type CartItem = {
+  id: string;
+  name: string;
+  price: number;
+  currency: string;
+  newQuantity?: string;
+};
+
+export type RemoveCartItem = {
+  id: string;
+};
+
+export type AddQuantityItem = {
+  id: string;
+  newQuantity?: string;
+};
+
 /**
  * The response type of errors from /api/*.
  */

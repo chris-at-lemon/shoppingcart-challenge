@@ -1,9 +1,10 @@
 import { cartController } from "./cartController";
 import Button from "../buttons/button";
+import NumberInput from "../form/inputs/numberInput";
 
 const Cart = () => {
-  const { cart, total, fn } = cartController();
-  console.log(cart);
+  const { cart, total, quantityInputValue, fn } = cartController();
+  //console.log(cart);
 
   return (
     <>
@@ -21,11 +22,17 @@ const Cart = () => {
                         {cart[key].currency} {cart[key].price}
                       </div>
                       <div className="flex">
-                        <div className="mr-4" onClick={() => fn.handleRemoveFromCart(key, cart[key].name, cart[key].price, cart[key].currency)}>
+                        <div className="mr-4" onClick={() => fn.handleRemoveFromCart({ id: key })}>
                           <Button label="-" colour="danger" size="sm" />
                         </div>
                         <div>x {cart[key].quantity}</div>
-                        <div className="ml-4" onClick={() => fn.handleAddToCart(key, cart[key].name, cart[key].price, cart[key].currency)}>
+                        <div className="ml-4" onClick={() => fn.handleAddToCart({ id: key, name: cart[key].name, price: cart[key].price, currency: cart[key].currency })}>
+                          <Button label="+" colour="primary" size="sm" />
+                        </div>
+                        <div>
+                          <NumberInput value={quantityInputValue.id === key ? quantityInputValue.quantity : cart[key].quantity.toString()} onHandleChange={fn.handleInputChange} productId={key} setProductId={fn.setThisProduct} />
+                        </div>
+                        <div className="ml-4" onClick={() => fn.handleAddQuantity({ id: key, newQuantity: quantityInputValue.quantity })}>
                           <Button label="+" colour="primary" size="sm" />
                         </div>
                       </div>

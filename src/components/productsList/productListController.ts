@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Product, Cart } from "../../types";
+import { Product, Cart, CartItem } from "../../types";
 
 import { useRecoilState } from "recoil";
 import { CartState } from "../../atoms/cartAtom";
@@ -17,26 +17,20 @@ export const useProductList = () => {
     const thisProductsList = await getProducts(currentPage, productList);
 
     setProductList(thisProductsList.results);
-    // example of not mutating state directly, not needed here as we just replace the state
-    // let newProductslist = [...productList];
-    // newProductslist.length = 0;
-    // newProductslist.push(...thisProductsList.results);
-    // setProductList(newProductslist);
-
-    // set product count
     setProductCount(thisProductsList.count);
   };
 
   // Perform cart actions
   const [cart, setCart] = useRecoilState<Cart>(CartState);
 
-  const handleAddToCart = (id: string, name: string, price: number, currency: string) => {
-    const newCart = addToCart(cart, id, name, price, currency);
+  // Cart actions
+  const handleAddToCart = (cartItem: CartItem) => {
+    const newCart = addToCart(cart, cartItem);
     setCart(newCart);
   };
 
-  const handleRemoveFromCart = (id: string, name: string, price: number, currency: string) => {
-    const newCart: any = removeFromCart(cart, id, name, price, currency);
+  const handleRemoveFromCart = (cartItem: CartItem) => {
+    const newCart = removeFromCart(cart, cartItem);
     setCart(newCart);
   };
 
