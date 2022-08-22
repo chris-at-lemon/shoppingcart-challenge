@@ -2,13 +2,19 @@ import { useState, useEffect } from "react";
 import { useRecoilState } from "recoil";
 import { CartState } from "../../atoms/cartAtom";
 import { addToCart, removeFromCart, addQuantity, calcTotal } from "../../modules/cartActions";
-import { oddOrEven } from "../../modules/utilities";
+import { getSingleProduct } from "../../modules/productListActions";
 
 import { Cart, CartItem, RemoveCartItem, AddQuantityItem } from "../../types";
 
 export const cartController = () => {
   const [cart, setCart] = useRecoilState<Cart>(CartState);
   console.log(cart);
+
+  // Product actions
+  const fetchSingleProduct = async (gtin: string) => {
+    const thisProduct = await getSingleProduct(gtin);
+    console.log(thisProduct);
+  };
 
   // Cart actions
   const handleAddToCart = (cartItem: CartItem) => {
@@ -52,7 +58,8 @@ export const cartController = () => {
     handleTotal(cart);
   }, [cart]);
 
-  // Above is the React way with states, in this case a quick 3 liner may be more efficient
+  // Above is the React way with states, in this case a quick 3 liner as below may be more efficient
+  //
   // let total: number = 0;
   // if (cart) {
   //   total = Object.values(cart).reduce((acc, curr: any) => (acc = acc + curr["subtotal"]), 0);
@@ -68,6 +75,7 @@ export const cartController = () => {
       handleAddQuantity,
       handleInputChange,
       handleResetCart,
+      fetchSingleProduct,
     },
   };
 };

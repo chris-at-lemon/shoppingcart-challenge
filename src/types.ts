@@ -19,19 +19,22 @@ export type Cart = {
 };
 
 export type CartItem = {
-  id: string;
+  gtin: string;
   name: string;
   price: number;
   currency: string;
   newQuantity?: string;
+  imageUrl?: string;
+  brandName?: string;
+  categoryName?: string;
 };
 
 export type RemoveCartItem = {
-  id: string;
+  gtin: string;
 };
 
 export type AddQuantityItem = {
-  id: string;
+  gtin: string;
   newQuantity?: string;
 };
 
