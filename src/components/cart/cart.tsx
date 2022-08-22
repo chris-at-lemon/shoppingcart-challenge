@@ -16,35 +16,35 @@ const Cart = () => {
               <>
                 {Object.keys(cart).map((key, i) => {
                   return (
-                    <div key={i}>
+                    <div className="border-b-2 pb-2 mb-4" key={i}>
                       <div className="font-bold">{cart[key].name}</div>
-                      <div>
-                        {cart[key].currency} {cart[key].price}
+                      <div className="font-semibold border-b-2 pb-2 mb-4">
+                        Unit price: {cart[key].currency} {cart[key].price}
                       </div>
-                      <div className="flex">
-                        <div className="mr-4" onClick={() => fn.handleRemoveFromCart({ id: key })}>
-                          <Button label="-" colour="danger" size="sm" />
-                        </div>
-                        <div>x {cart[key].quantity}</div>
-                        <div className="ml-4" onClick={() => fn.handleAddToCart({ id: key, name: cart[key].name, price: cart[key].price, currency: cart[key].currency })}>
-                          <Button label="+" colour="primary" size="sm" />
-                        </div>
-                        <div>
-                          <NumberInput value={quantityInputValue.id === key ? quantityInputValue.quantity : cart[key].quantity.toString()} onHandleChange={fn.handleInputChange} addQuantity={fn.handleAddQuantity} productId={key} />
-                        </div>
-                        <div className="ml-4" onClick={() => fn.handleAddQuantity({ id: key, newQuantity: quantityInputValue.quantity })}>
-                          <Button label="+" colour="primary" size="sm" />
+                      <div className="flex justify-between align-middle mx-auto h-6">
+                        <div className="">Edit quantity</div>
+                        <div className="flex flex-grow justify-end">
+                          <div className="flex align-middle mr-2" onClick={() => fn.handleRemoveFromCart({ id: key })}>
+                            <Button label="-" colour="danger" size="sm" />
+                          </div>
+                          <div className="flex align-middle w-24">
+                            <NumberInput value={quantityInputValue.id === key ? quantityInputValue.quantity : cart[key].quantity.toString()} onHandleChange={fn.handleInputChange} addQuantity={fn.handleAddQuantity} productId={key} />
+                          </div>
+                          <div className="flex align-middle ml-2" onClick={() => fn.handleAddToCart({ id: key, name: cart[key].name, price: cart[key].price, currency: cart[key].currency })}>
+                            <Button label="+" colour="primary" size="sm" />
+                          </div>
                         </div>
                       </div>
+                      <div className="flex justify-end mt-4 pt-2 font-semibold border-t-2">Subtotal: {cart[key].subtotal.toFixed(2)}</div>
                     </div>
                   );
                 })}
                 {Object.keys(cart).length !== 0 && (
-                  <div className="flex justify-between mt-4 pt-2 border-t-2">
-                    <div onClick={fn.handleResetCart}>
+                  <div className="flex justify-between align-middle mt-4 pt-2">
+                    <div className="flex align-middle" onClick={fn.handleResetCart}>
                       <Button label="empty cart" colour="danger" size="sm" />
                     </div>
-                    <div>Total: {total.toFixed(2)}</div>
+                    <div className="font-bold text-xl">Total: {total.toFixed(2)}</div>
                   </div>
                 )}
               </>

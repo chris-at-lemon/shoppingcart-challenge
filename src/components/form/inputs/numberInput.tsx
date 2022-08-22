@@ -13,7 +13,14 @@ const NumberInput = (props: NumberInput) => {
   const [thisVal, setThisVal] = useState<string>("");
 
   const handleLocalChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setThisVal(e.target.value);
+    setTimeout(() => {
+      if (e.target.value === "") {
+        return;
+      }
+      if (e.target.value !== "") {
+        addQuantity({ id: productId, newQuantity: e.target.value });
+      }
+    }, 400);
   };
 
   function handleKeyDown(e: React.KeyboardEvent) {
@@ -29,7 +36,7 @@ const NumberInput = (props: NumberInput) => {
         onHandleChange(e, productId), handleLocalChange(e);
       }}
       onKeyDown={(e) => handleKeyDown(e)}
-      className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+      className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-center"
       id="username"
       type="text"
       placeholder="quantity"
