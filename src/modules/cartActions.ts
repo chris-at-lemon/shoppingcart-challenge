@@ -1,5 +1,6 @@
 import { Cart, CartItem, RemoveCartItem, AddQuantityItem } from "../types";
 
+// Add an item to the cart
 export const addToCart = (cart: Cart, cartProps: CartItem) => {
   const { gtin, name, recommendedRetailPrice, recommendedRetailPriceCurrency } = cartProps;
 
@@ -13,6 +14,7 @@ export const addToCart = (cart: Cart, cartProps: CartItem) => {
   return { ...newCart, [gtin]: { name: name, gtin: gtin, recommendedRetailPrice: recommendedRetailPrice, quantity: quantity, subtotal: recommendedRetailPrice * quantity, recommendedRetailPriceCurrency: recommendedRetailPriceCurrency } };
 };
 
+// Remove an item from the cart
 export const removeFromCart = (cart: Cart, cartProps: RemoveCartItem) => {
   const { gtin } = cartProps;
 
@@ -40,6 +42,7 @@ export const removeFromCart = (cart: Cart, cartProps: RemoveCartItem) => {
   return { ...newCart };
 };
 
+// Update quantity of exisitng item in cart
 export const addQuantity = (cart: Cart, cartProps: AddQuantityItem) => {
   const { newQuantity, gtin } = cartProps;
 
@@ -59,6 +62,7 @@ export const addQuantity = (cart: Cart, cartProps: AddQuantityItem) => {
   return { ...newCart };
 };
 
+// Add props to exisitng item in cart
 export const addToItem = (cart: Cart, thisProduct: CartItem) => {
   const { gtin, imageUrl, brandName, categoryName } = thisProduct;
 
@@ -73,6 +77,20 @@ export const addToItem = (cart: Cart, thisProduct: CartItem) => {
   return { ...newCart, [gtin]: newCartItem };
 };
 
+// Show/Hide additional props
+export const toggleDetails = (gtin: string, seeDetails: string[]) => {
+  const activeDetails = [...seeDetails];
+  if (activeDetails.includes(gtin)) {
+    console.log("already there");
+    const removedItem = activeDetails.filter((item) => item !== gtin);
+    return removedItem;
+  } else {
+    activeDetails.push(gtin);
+    return activeDetails;
+  }
+};
+
+// Calculate cart total
 export const calcTotal = (cart: Cart) => {
   const total = Object.values(cart).reduce((acc, curr: any) => (acc = acc + curr["subtotal"]), 0);
   return total;

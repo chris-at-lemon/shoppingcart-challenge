@@ -25,7 +25,7 @@ const ProductList = () => {
                 <div>
                   <strong>{product.name}</strong>{" "}
                 </div>
-                <div>
+                <div className="lg:pl-2">
                   <small>
                     ({product.categoryName} - {product.brandName})
                   </small>

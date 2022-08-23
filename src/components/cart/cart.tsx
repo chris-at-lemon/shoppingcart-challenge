@@ -1,5 +1,6 @@
 import { cartController } from "./cartController";
 import Button from "../buttons/button";
+import CartTotal from "./cartTotal";
 import NumberInput from "../form/inputs/numberInput";
 
 const Cart = () => {
@@ -11,6 +12,9 @@ const Cart = () => {
       {cart && (
         <>
           <div className="pt-1 mb-6 text-xl font-bold">Your cart</div>
+
+          <div>{Object.keys(cart).length !== 0 && <CartTotal total={total} resetCart={fn.handleResetCart} />}</div>
+
           <div className="rounded shadow-md mb-4 border-2">
             {Object.keys(cart).length > 0 ? (
               <>
@@ -24,16 +28,35 @@ const Cart = () => {
                             Unit price: {cart[key].recommendedRetailPriceCurrency} {cart[key].recommendedRetailPrice}
                           </div>
                           <div
+                            className=" cursor-pointer"
                             onClick={() => {
-                              fn.fetchSingleProduct(key), fn.toggleDetails();
+                              fn.fetchSingleProduct(key), fn.handleDetails(key);
                             }}
                           >
-                            see details <span className="text-xs">&#x25BC;</span>
+                            {cart[key].imageUrl && seeDetails.includes(key) ? (
+                              <span>
+                                hide details <span className="text-xs">&#x25B2;</span>
+                              </span>
+                            ) : (
+                              <span>
+                                see details <span className="text-xs"> &#x25BC;</span>
+                              </span>
+                            )}
                           </div>
                         </div>
-                        {cart[key].imageUrl && seeDetails ? (
-                          <div className="border-b-2 pb-2 mt-2">
-                            <img className="w-24" src={cart[key].imageUrl} alt={cart[key].name} />
+                        {cart[key].imageUrl && seeDetails.includes(key) ? (
+                          <div className="flex items-center border-b-2 pb-2 mt-2 text-sm">
+                            <div>
+                              <img className="w-24" src={cart[key].imageUrl} alt={cart[key].name} />
+                            </div>
+                            <div className="pl-4">
+                              <div>
+                                <strong>Brand:</strong> {cart[key].brandName}
+                              </div>
+                              <div>
+                                <strong>Category:</strong> {cart[key].categoryName}
+                              </div>
+                            </div>
                           </div>
                         ) : (
                           ""
@@ -60,17 +83,10 @@ const Cart = () => {
                     </div>
                   );
                 })}
-                {Object.keys(cart).length !== 0 && (
-                  <div className="flex justify-between align-middle mt-4 p-2">
-                    <div className="flex align-middle" onClick={fn.handleResetCart}>
-                      <Button label="empty cart" colour="danger" size="sm" />
-                    </div>
-                    <div className="font-bold text-xl">Total: {total.toFixed(2)}</div>
-                  </div>
-                )}
+                <div>{Object.keys(cart).length !== 0 && <CartTotal total={total} resetCart={fn.handleResetCart} />}</div>
               </>
             ) : (
-              <div>Your cart is currently empty</div>
+              <div className="p-4">Your cart is currently empty</div>
             )}
           </div>
         </>

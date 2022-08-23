@@ -2,7 +2,7 @@
   "private": true,
   "name": "frontend-challenge",
   "version": "1.1.0",
-  "description": "Qogita's Front-End Technical Challenge.",
+  "description": "Front-End Technical Challenge.",
   "main": "src/index.tsx",
   "scripts": {
     "dev": "next dev",
@@ -12,14 +12,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/qogita/frontend-challenge.git"
+    "url": "git+https://github.com/chris-at-lemon/shoppingcart-challenge"
   },
-  "author": "Qogita",
+  "author": "Chris Herrmann",
   "license": "UNLICENSED",
   "bugs": {
-    "url": "https://github.com/qogita/frontend-challenge/issues"
+    "url": "https://github.com/chris-at-lemon/shoppingcart-challenge"
   },
-  "homepage": "https://github.com/qogita/frontend-challenge#readme",
+  "homepage": "https://github.com/chris-at-lemon/shoppingcart-challenge",
   "dependencies": {
     "axios": "^0.27.2",
     "next": "^11.0.1",

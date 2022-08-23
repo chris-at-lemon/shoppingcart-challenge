@@ -1,12 +1,12 @@
-# Qogita's Front-End Technical Challenge.
+# Front-End Technical Challenge.
 
-Congratulations on reaching the technical challenge stage of the interview process at Qogita.
+Congratulations on reaching the technical challenge stage of the interview process.
 
 We are excited to potentially have you join the Engineering team, where you will work alongside brilliant people to build a revolutionary global wholesale B2B platform.
 
 ## Background
 
-This challenge is built around the front-end stack we use at Qogita – [TypeScript](https://www.typescriptlang.org/), [React](https://reactjs.org/), [Next.js](https://nextjs.org/), and [Tailwind CSS](https://tailwindcss.com/).
+This challenge is built around the front-end stack we use – [TypeScript](https://www.typescriptlang.org/), [React](https://reactjs.org/), [Next.js](https://nextjs.org/), and [Tailwind CSS](https://tailwindcss.com/).
 
 You are expected to use the tools and techniques are you are most comfortable with to produce good quality code that can be understood by engineers of varying experience.
 

@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import Link from "next/link";
 
 type Props = {
   children: React.ReactNode;
@@ -7,7 +7,7 @@ type Props = {
 const Layout = ({ children }: Props) => (
   <div className="container mx-auto px-4">
     <div className="flex justify-between">
-      <strong>Qogita</strong>
+      <strong>Shopping Cart Challenge</strong>
       <nav>
         <ul className="flex gap-4">
           <li>

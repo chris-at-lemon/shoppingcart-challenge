@@ -4,7 +4,7 @@ import { RecoilRoot } from "recoil";
 
 import "../global.css";
 
-const QogitaApp = ({ Component, pageProps }: AppProps): JSX.Element => (
+const ShoppingApp = ({ Component, pageProps }: AppProps): JSX.Element => (
   <RecoilRoot>
     <Layout>
       <Component {...pageProps} />
@@ -12,4 +12,4 @@ const QogitaApp = ({ Component, pageProps }: AppProps): JSX.Element => (
   </RecoilRoot>
 );
 
-export default QogitaApp;
+export default ShoppingApp;
